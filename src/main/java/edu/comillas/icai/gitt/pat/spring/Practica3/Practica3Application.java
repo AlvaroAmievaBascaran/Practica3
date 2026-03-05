@@ -1,10 +1,10 @@
-package edu.comillas.icai.gitt.pat.spring.Practica2;
+package edu.comillas.icai.gitt.pat.spring.Practica3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Practica2Application {
+public class Practica3Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Practica2Application.class, args);

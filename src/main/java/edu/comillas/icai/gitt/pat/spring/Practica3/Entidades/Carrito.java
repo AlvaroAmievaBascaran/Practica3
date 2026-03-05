@@ -1,4 +1,4 @@
-package edu.comillas.icai.gitt.pat.spring.Practica2.Modelo;
+package edu.comillas.icai.gitt.pat.spring.Practica3.Modelo;
 
 public class Carrito {
 

@@ -1,4 +1,4 @@
-package edu.comillas.icai.gitt.pat.spring.Practica2.Controlador;
+package edu.comillas.icai.gitt.pat.spring.Practica3.Controlador;
 
 import edu.comillas.icai.gitt.pat.spring.Practica2.Modelo.Carrito;
 import org.springframework.http.HttpStatus;
