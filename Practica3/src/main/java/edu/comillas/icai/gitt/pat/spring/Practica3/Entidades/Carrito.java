@@ -17,6 +17,7 @@ public class Carrito {
     private double totalPrecio;
 
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<LineaCarrito> lineas = new ArrayList<>();
 
     public Carrito() {}

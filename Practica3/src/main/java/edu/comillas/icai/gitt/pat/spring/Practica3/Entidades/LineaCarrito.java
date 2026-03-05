@@ -1,5 +1,6 @@
 package edu.comillas.icai.gitt.pat.spring.Practica3.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class LineaCarrito {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_carrito", nullable = false)
+    @JsonBackReference
     private Carrito carrito;
 
     @Column(name = "id_articulo", nullable = false)
