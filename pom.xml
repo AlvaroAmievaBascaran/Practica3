@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.comillas.icai.gitt.pat.spring</groupId>
-	<artifactId>Practica2</artifactId>
+	<artifactId>Practica3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Practica2</name>
+	<name>Practica3</name>
 	<description>Práctica 3</description>
 	<url/>
 	<licenses>

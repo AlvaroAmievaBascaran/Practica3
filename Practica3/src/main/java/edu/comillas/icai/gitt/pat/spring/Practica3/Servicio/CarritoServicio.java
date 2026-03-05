@@ -1,6 +1,7 @@
 package edu.comillas.icai.gitt.pat.spring.Practica3.Servicio;
 
-import edu.comillas.icai.gitt.pat.spring.Practica3.Entidades.*;
+import edu.comillas.icai.gitt.pat.spring.Practica3.Entidades.Carrito;
+import edu.comillas.icai.gitt.pat.spring.Practica3.Entidades.LineaCarrito;
 import edu.comillas.icai.gitt.pat.spring.Practica3.Modelo.AddLineaRequest;
 import edu.comillas.icai.gitt.pat.spring.Practica3.Modelo.CrearCarritoRequest;
 import edu.comillas.icai.gitt.pat.spring.Practica3.Repositorio.CarritoRepositorio;
@@ -43,21 +44,25 @@ public class CarritoServicio {
     public Carrito anadirLinea(Long idCarrito, AddLineaRequest req) {
         Carrito carrito = obtener(idCarrito);
 
-        LineaCarritoId lid = new LineaCarritoId(idCarrito, req.idArticulo);
-        LineaCarrito linea = lineaRepo.findById(lid).orElse(null);
+        LineaCarrito linea = lineaRepo
+                .findByCarritoIdCarritoAndIdArticulo(idCarrito, req.idArticulo)
+                .orElse(null);
 
         if (linea == null) {
             linea = new LineaCarrito();
-            linea.setId(lid);
             linea.setCarrito(carrito);
-            linea.setUnidades(0);
-            carrito.getLineas().add(linea);
-        }
+            linea.setIdArticulo(req.idArticulo);
+            linea.setPrecioUnitario(req.precioUnitario);
+            linea.setUnidades(req.unidades);
+            linea.recalcularCoste();
 
-        linea.setDescripcion(req.descripcion);
-        linea.setPrecioUnitario(req.precioUnitario);
-        linea.setUnidades(linea.getUnidades() + req.unidades);
-        linea.recalcularCoste();
+            carrito.getLineas().add(linea);
+        } else {
+            // ya existe: sumamos unidades y actualizamos precio/desc si quieres
+            linea.setPrecioUnitario(req.precioUnitario);
+            linea.setUnidades(linea.getUnidades() + req.unidades);
+            linea.recalcularCoste();
+        }
 
         carrito.recalcularTotal();
         return carritoRepo.save(carrito);
@@ -67,10 +72,12 @@ public class CarritoServicio {
     public void borrarLinea(Long idCarrito, Long idArticulo) {
         Carrito carrito = obtener(idCarrito);
 
-        LineaCarritoId lid = new LineaCarritoId(idCarrito, idArticulo);
-        LineaCarrito linea = lineaRepo.findById(lid).orElseThrow();
+        LineaCarrito linea = lineaRepo
+                .findByCarritoIdCarritoAndIdArticulo(idCarrito, idArticulo)
+                .orElseThrow();
 
-        carrito.getLineas().remove(linea); // orphanRemoval borra en BD
+        carrito.getLineas().remove(linea);
         carrito.recalcularTotal();
         carritoRepo.save(carrito);
     }
+}
